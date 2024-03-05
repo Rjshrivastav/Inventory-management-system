@@ -41,7 +41,7 @@ const DisplayProduct = () => {
       </div>
       <table className="table-auto w-full border-collapse border border-green-800">
         <thead>
-          <tr className="bg-green-500 text-white">
+          <tr className="bg-[#219ebc] text-white">
             <th className="text-left pl-2 py-3">Name</th>
             <th className="text-left pl-2 py-3">Category</th>
             <th className="text-left pl-2 py-3">Price</th>

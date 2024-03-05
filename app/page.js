@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Navbar from "./components/Navbar";
 import AddAndHandleProduct from "./components/AddProduct";
 import SearchProduct from "./components/SearchProduct";

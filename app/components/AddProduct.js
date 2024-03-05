@@ -82,7 +82,7 @@ const AddAndHandleProduct = () => {
             <button
             onClick={addProduct}
               type="submit"
-              className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300"
+              className="bg-[#219ebc] text-white py-2 px-4 rounded"
             >
               Add Product
             </button>
