@@ -9,7 +9,6 @@ const client = new MongoClient(uri);
 
 export async function GET(request){
 
-  try {
     const database = client.db('stock');
     const inventory = database.collection('inventory');
 
@@ -19,27 +18,42 @@ export async function GET(request){
 
     // console.log(products);
     return NextResponse.json(products)
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+
 }
 
 export async function POST(request){
 
-    let body = await request.json()
-    
-      try {
+    try {
+        const body = await request.json();
         const database = client.db('stock');
         const inventory = database.collection('inventory');
     
-        // Query for a movie that has the title 'Back to the Future'
-        const product = await inventory.insertOne(body);
+        // Check if the product with the given name already exists
+        const existingProduct = await inventory.findOne({ name: body.name, category: body.category });
+        console.log(existingProduct)
     
-        // console.log(product);
-        return NextResponse.json({product, ok: true})
-      } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
+        if (existingProduct) {
+          // If the product exists, update its details
+          await inventory.updateOne(
+            { name: body.name },
+            { $set: { category: body.category, price: body.price, quantity: body.quantity } }
+          );
+          return new Response(JSON.stringify({ message: 'Product updated successfully.', ok: true }), {
+            headers: { 'Content-Type': 'application/json' },
+          });
+        } else {
+          // If the product doesn't exist, add a new one
+          await inventory.insertOne(body);
+          return new Response(JSON.stringify({ message: 'Product added successfully.', ok: true }), {
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        return new Response(JSON.stringify({ error: 'Internal Server Error' }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' },
+        });
       }
-    }
+      
+}

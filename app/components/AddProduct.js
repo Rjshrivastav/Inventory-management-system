@@ -23,6 +23,12 @@ const AddAndHandleProduct = () => {
         console.log('Product added successfully.');
         setAlert("Your Product has been added!")
         setproductForm({})
+
+        //hide aleart in 5sec
+        setTimeout(()=> {
+          setAlert("")
+        }, 5000)
+        
       } else {
         console.error('Error adding product')
       }
@@ -36,11 +42,10 @@ const AddAndHandleProduct = () => {
 
   }
   return (
-    <div className="mb-8">
+    <div>
       <div className='text-green-800 font-bold bg-green-200'>{Alert}</div>
-          <h1 className="text-3xl font-bold mb-4">Add a Product</h1>
-          <form className="flex flex-col space-y-4">
-            <label className="text-lg">Product Name:</label>
+          <h1 className="text-3xl font-bold mb-4 text-center">Add a Product</h1>
+          <form className="flex flex-col space-y-2">
             <input
             name='name'
             onChange={handleChange}
@@ -49,8 +54,6 @@ const AddAndHandleProduct = () => {
               placeholder="Enter product name"
               className="py-2 px-4 border border-gray-300 rounded"
             />
-
-            <label className="text-lg">Category:</label>
             <input
             name='category'
             value={productForm?.category || ""}
@@ -59,8 +62,6 @@ const AddAndHandleProduct = () => {
               placeholder="Enter category"
               className="py-2 px-4 border border-gray-300 rounded"
             />
-
-            <label className="text-lg">Price:</label>
             <input
             name='price'
             value={productForm?.price || ""}
@@ -69,8 +70,6 @@ const AddAndHandleProduct = () => {
               placeholder="Enter price"
               className="py-2 px-4 border border-gray-300 rounded"
             />
-
-            <label className="text-lg">Quantity:</label>
             <input
             name='quantity'
             value={productForm?.quantity || ""}

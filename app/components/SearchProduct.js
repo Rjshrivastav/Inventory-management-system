@@ -8,11 +8,11 @@ const SearchProduct = () => {
   const [dropdown, setdropdown] = useState([]);
 
   const onDropdownEdit = async (e) => {
-    const value = e.target.value
+    const value = e.target.value;
     setquery(value);
     if (!loading) {
       setloading(true);
-      setdropdown([])
+      setdropdown([]);
 
       if (value.trim() === "") {
         setquery("");
@@ -28,18 +28,15 @@ const SearchProduct = () => {
   };
 
   return (
-    <div className="my-8">
+    <div className="">
       <h1 className="text-3xl font-bold mb-4">Search a Product</h1>
       <div className="flex items-center space-x-4">
         <input
           type="text"
           onChange={onDropdownEdit}
           placeholder="Enter product name"
-          className="py-2 px-4 border border-gray-300 rounded"
+          className="w-full h-[40px] marker:py-2 px-4 border border-gray-300 rounded"
         />
-        <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition duration-300">
-          Search
-        </button>
       </div>
       {loading && (
         <svg
@@ -62,28 +59,33 @@ const SearchProduct = () => {
           ></path>
         </svg>
       )}
-      {dropdown.length > 0 && (
-  <table className="table-auto w-full border-collapse border border-green-800 mt-2">
-    <thead>
-      <tr className="bg-green-500 text-white">
-        <th className="text-left pl-2 py-3">Name</th>
-        <th className="text-left pl-2 py-3">Category</th>
-        <th className="text-left pl-2 py-3">Price</th>
-        <th className="text-left pl-2 py-3">Quantity</th>
-      </tr>
-    </thead>
-    <tbody>
-      {dropdown.map((item) => (
-        <tr className="border-b" key={item._id}>
-          <td className="text-left pl-2 py-3">{item.name}</td>
-          <td className="text-left pl-2 py-3">{item.category}</td>
-          <td className="text-left pl-2 py-3">{item.price}</td>
-          <td className="text-left pl-2 py-3">{item.quantity}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-)}
+      {dropdown.length > 0 ? (
+        <div className=" max-h-[77vh] overflow-y-scroll">
+          <table className="table-auto w-full border-collapse border border-green-800 mt-2">
+            <thead>
+              <tr className="bg-green-500 text-white">
+                <th className="text-left pl-2 py-3">Name</th>
+                <th className="text-left pl-2 py-3">Category</th>
+                <th className="text-left pl-2 py-3">Price</th>
+                <th className="text-left pl-2 py-3">Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dropdown.map((item) => (
+                <tr className="border-b" key={item._id}>
+                  <td className="text-left pl-2 py-3">{item.name}</td>
+                  <td className="text-left pl-2 py-3">{item.category}</td>
+                  <td className="text-left pl-2 py-3">{item.price}</td>
+                  <td className="text-left pl-2 py-3">{item.quantity}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ): (
+        <span className="block opacity-75 my-4 text-gray-400">No data to show</span>
+      )
+    }
     </div>
   );
 };
